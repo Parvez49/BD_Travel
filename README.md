@@ -32,5 +32,5 @@ Short Description: The website allows users to browse and search for travel dest
 ![contact](https://github.com/Parvez49/BD_Travel/assets/72366747/22951164-c785-4a4e-bb87-c4521f997a78)
 
 ## Contact
-gmail: ph.cse.bd@gmail.com
-linkedin: https://www.linkedin.com/in/parvez-hossen-6b7133157/
+- gmail: ph.cse.bd@gmail.com
+- linkedin: https://www.linkedin.com/in/parvez-hossen-6b7133157/
