@@ -2,9 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
-
-
 class Contact(models.Model):
     name=models.CharField(max_length=50)
     email=models.EmailField(max_length=254)
@@ -49,6 +46,20 @@ class Package(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+from django.contrib.auth.models import User 
+
+class Booking(models.Model):
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)  # Replace 'User' with your actual User model
+    booking_date = models.DateField()
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    num_of_travelers = models.PositiveIntegerField()
+
+    def __str__(self):
+        return f"{self.package.name} - {self.booking_date}"
+
 
 
 

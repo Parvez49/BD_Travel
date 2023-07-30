@@ -132,7 +132,6 @@ MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
 
 
-
 """
 CACHES = {
     'default': {
@@ -145,3 +144,31 @@ CACHES = {
 }
 """
 
+# -----Multiple Social Media----
+
+# Add the following at the end of the file
+SOCIAL_AUTH_PROVIDERS = {
+    'google': {
+        'AUTHORIZATION_URL': 'https://accounts.google.com/o/oauth2/auth',
+        'TOKEN_URL': 'https://accounts.google.com/o/oauth2/token',
+        'USER_INFO_URL': 'https://www.googleapis.com/oauth2/v2/userinfo',
+        'CLIENT_ID': '947540323515-618mb135tr1v0c7fhaaej6hv6qhgs1gk.apps.googleusercontent.com',
+        'CLIENT_SECRET': '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',
+        'SCOPE': 'openid email profile',
+    },
+    'github': {
+        'AUTHORIZATION_URL': 'https://github.com/login/oauth/authorize',
+        'TOKEN_URL': 'https://github.com/login/oauth/access_token',
+        'USER_INFO_URL': 'https://api.github.com/user',
+        'CLIENT_ID': 'YOUR_GITHUB_CLIENT_ID',
+        'CLIENT_SECRET': 'YOUR_GITHUB_CLIENT_SECRET',
+        'SCOPE': 'user',
+    },
+    # Add configurations for other providers like Facebook, Twitter, etc.
+}
+
+"""
+GOOGLE_CLIENT_ID = '947540323515-618mb135tr1v0c7fhaaej6hv6qhgs1gk.apps.googleusercontent.com'
+GOOGLE_CLIENT_SECRET = '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'
+
+"""

@@ -103,3 +103,136 @@ def destination(request):
     packages=Package.objects.all()[:5]
 
     return render(request,'app/destinations.html',{"packages":packages})
+
+
+
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from .serializers import BookingSerializer
+from .models import Booking
+
+@login_required(login_url='/auth/accounts/login/')
+def booking(request,package):
+
+    package=Package.objects.get(package_id=package)
+    if request.method=="POST":
+        user = request.user
+        existing_booking=Booking.objects.filter(user=user,package=package).first()
+        
+        num_of_travelers=int(request.POST.get('num_of_travelers',0))
+        if existing_booking:
+            existing_booking.num_of_travelers = num_of_travelers
+            existing_booking.total_price = package.price * num_of_travelers
+            existing_booking.save()
+        else:
+            new_booking = Booking.objects.create(
+                package=package,
+                user=user,
+                booking_date=package.start_date,
+                num_of_travelers=num_of_travelers,
+                total_price=package.price * num_of_travelers
+            )
+            print(new_booking.package.price)
+            new_booking.save()
+
+        messages.success(request,"Your booking added")
+
+        """
+        # ------------- Using Serializer -------------------------
+        booking_data = {
+                'package': package.pk,
+                'user': user.pk,
+                'booking_date': package.start_date,
+                'num_of_travelers': request.POST.get('num_of_travelers'),  # You can change this to the actual number of travelers
+            }
+        if existing_booking: # update code
+            bookingobj=BookingSerializer(existing_booking,data=booking_data,partial=True)
+            if bookingobj.is_valid():
+                bookingobj.save()
+                print(bookingobj['package'].name)
+            else:
+                print("Error")
+                print(bookingobj.errors)
+            
+        else:
+            bookingobj=BookingSerializer(data=booking_data)
+            if bookingobj.is_valid():
+                bookingobj.save()
+            else:
+                print("ERROR")
+        """
+
+    return render(request,'app/Booking_form.html',{'package':package})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ------------------Api---------------------------------
+# ------------------------------------------------------
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.exceptions import AuthenticationFailed
+
+import jwt, datetime
+from jwt.exceptions import ExpiredSignatureError, DecodeError
+
+from .serializers import NewsSerializer, PackageSerializer
+
+@api_view(['POST'])
+def api_post_News(request):
+    token=request.COOKIES.get('jwt')
+    if not token:
+        raise AuthenticationFailed("Authentication Failed")
+
+    try:
+        payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+    except ExpiredSignatureError:
+        raise AuthenticationFailed('Unauthenticated!')
+    except DecodeError:
+        raise AuthenticationFailed('Unauthenticated!')
+    
+    newsobj=NewsSerializer(data=request.data)
+    if newsobj.is_valid():
+        newsobj.save()
+        return Response(" News saved ")
+    return Response(" ERROR ")
+
+@api_view(['POST'])
+def api_post_Package(request):
+    token=request.COOKIES.get('jwt')
+    if not token:
+        raise AuthenticationFailed("Authentication Failed")
+    try:
+        payload=jwt.decode(token,'secret',algorithms=['HS256'])
+    except ExpiredSignatureError:
+        raise AuthenticationFailed("Authentication Failed")
+    except DecodeError:
+        raise AuthenticationFailed("Authentication Failed")
+    
+    packageobj=PackageSerializer(data=request.data)
+    if packageobj.is_valid():
+        packageobj.save()
+        return Response(" Package Saved ")
+    return Response(" ERROR ")
+
+
+
+    

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Booking Form</title>
+    <!-- Add any CSS stylesheets or other meta tags here -->
+</head>
+<body>
+    <h2>{{ package.name }} Booking Form</h2>
+    {% if messages %}
+        {% for msg in messages %}
+            <h5>{{msg}}</h5>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+
+        <br>
+        <label for="num_of_travelers">Number of Travelers:</label>
+        <input type="number" name="num_of_travelers" id="num_of_travelers">
+        <br>
+        <button type="submit">Book Now</button>
+    </form>
+</body>
+</html>

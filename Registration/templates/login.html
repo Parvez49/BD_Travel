@@ -38,6 +38,9 @@
                     <div class="sign-up">
                         Don't have an account? <a href="{% url 'Auth:register_attempt' %}">Create One</a>
                     </div>
+                    <div>
+                        <a href="{% url 'Auth:authenticate_with_provider' provider='google' %}">Sign in with gmail</a>
+                    </div>
                 </form>
             </div>
         </div>

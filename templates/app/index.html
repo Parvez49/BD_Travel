@@ -35,7 +35,7 @@
 								<ul class="d-flex flex-row align-items-start justify-content-start">
 									<li class="active"><a href="{% url 'travelapp:index_page' %}">Home</a></li>
 									<li><a href="about.html">About us</a></li>
-									<li><a href="#">Services</a></li>
+									<li><a href="{% url 'travelapp:destination_page' %}">Services</a></li>
 									<li><a href="{% url 'travelapp:news_page' %}">News</a></li>
 									<li><a href="{% url 'travelapp:contact_page' %}">Contact</a></li>
 									{% if user.is_authenticated %}
@@ -190,7 +190,7 @@
 							
 							
 							{% for data in search_packages %}
-							<div class="home_search_title">{{ data.start_location }} to {{ data.end_location }} : {{ data.price }}  <a href='#'>details</a>  </div>
+							<div class="home_search_title">{{ data.start_location }} to {{ data.end_location }} : {{ data.price }}  <a href="{% url 'travelapp:booking_page' data.package_id %}">details</a>  </div>
 						
 							{% endfor %}
 							{% if not search_packages %}
