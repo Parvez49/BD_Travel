@@ -152,8 +152,8 @@ SOCIAL_AUTH_PROVIDERS = {
         'AUTHORIZATION_URL': 'https://accounts.google.com/o/oauth2/auth',
         'TOKEN_URL': 'https://accounts.google.com/o/oauth2/token',
         'USER_INFO_URL': 'https://www.googleapis.com/oauth2/v2/userinfo',
-        'CLIENT_ID': '947540323515-618mb135tr1v0c7fhaaej6hv6qhgs1gk.apps.googleusercontent.com',
-        'CLIENT_SECRET': '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',
+        'CLIENT_ID': 'google_client_id',
+        'CLIENT_SECRET': 'google_secret_id',
         'SCOPE': 'openid email profile',
     },
     'github': {
@@ -168,7 +168,7 @@ SOCIAL_AUTH_PROVIDERS = {
 }
 
 """
-GOOGLE_CLIENT_ID = '947540323515-618mb135tr1v0c7fhaaej6hv6qhgs1gk.apps.googleusercontent.com'
-GOOGLE_CLIENT_SECRET = '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'
+GOOGLE_CLIENT_ID = 'google_client_id'
+GOOGLE_CLIENT_SECRET = 'google_client_secret'
 
 """
