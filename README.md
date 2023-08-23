@@ -19,7 +19,7 @@ Short Description: The website allows users to browse and search for travel dest
 - Developed Api for Admin who are able to public news, destination information.
 
 ## Installation
-1. Clone this repository to your local machine using `git clone https://github.com/your-username/your-repository.git`
+1. Clone this repository to your local machine using `git clone https://github.com/Parvez49/BD_Travel.git
 2. Install the required dependencies using `pip install -r requirements.txt`
 3. Run the development server with `python manage.py runserver`
 
